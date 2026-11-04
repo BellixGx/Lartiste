@@ -10,12 +10,13 @@ import models, schemas
 router = APIRouter(prefix="/invoices", tags=["invoices"])
 
 BUSINESS = {
-    "name": "Med Gelato",
-    "address": "Quartier Sidi Abid, Al Hoceima",
-    "tel": "+212650580670",
-    # "ice": "002817300000009",
-    # "if_num": "50209915",
-    # "taxe_pro": "56600217",
+    "name": "RESTAURANT L'ARTISTE AL HOCAIMA",
+    "address": "MARINA AL HOCAIMA 3200",
+    "tel": "08 08 51 50 03",
+    "rc": "3545",
+    "ice": "003155284000007",
+    "if": "53303580",
+    "taxe_ro": "565036166",
 }
 
 
@@ -204,8 +205,8 @@ def export_pdf(id: int, db: Session = Depends(get_db)):
         fy = 10 * mm
         canvas.drawCentredString(PAGE_W/2, fy - 4,
             f"Auto Entrepreneur : {BUSINESS['name']}   |   TEL : {BUSINESS['tel']}   |   Adresse : {BUSINESS['address']}")
-        # canvas.drawCentredString(PAGE_W/2, fy - 11,
-        #     f"ICE : {BUSINESS['ice']}   |   IF : {BUSINESS['if_num']}   |   Taxe professionnelle N° : {BUSINESS['taxe_pro']}")
+        canvas.drawCentredString(PAGE_W/2, fy - 11,
+            f"ICE : {BUSINESS['rc']} | {BUSINESS['ice']}   |   IF : {BUSINESS['if']}   |   Taxe professionnelle N° : {BUSINESS['taxe_pro']}")
         canvas.setFont('Helvetica', 8)
         canvas.drawCentredString(PAGE_W/2, fy - 19, f"{doc.page} / {total_pages[0]}")
 
