@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --border: #f3f4f6;
+  --text: #111827;
+  --text-muted: #6b7280;
+}
+
+.dark {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+@layer components {
+  .input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  .input:focus { outline: none; }
+  .card {
+    background: var(--surface);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    padding: 1.25rem;
+  }
+  .label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    padding: 1rem;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: #111827;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: #374151; }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .btn-ghost:hover { background: var(--border); }
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    cursor: pointer;
+  }
+  .btn-danger:hover { background: #fef2f2; }
+}
+
+/* Dark mode text overrides */
+.dark .text-gray-900 { color: #f1f5f9 !important; }
+.dark .text-gray-800 { color: #e2e8f0 !important; }
+.dark .text-gray-700 { color: #cbd5e1 !important; }
+.dark .text-gray-600 { color: #94a3b8 !important; }
+.dark .text-gray-500 { color: #94a3b8 !important; }
+.dark .text-gray-400 { color: #64748b !important; }
+
+/* Dark mode backgrounds */
+.dark .bg-gray-50  { background-color: #0f172a !important; }
+.dark .bg-gray-100 { background-color: #1e293b !important; }
+.dark .bg-white    { background-color: #1e293b !important; }
+
+/* Dark mode borders */
+.dark .border-gray-100 { border-color: #334155 !important; }
+.dark .border-gray-200 { border-color: #334155 !important; }
+.dark .border-gray-50  { border-color: #1e293b !important; }
+
+/* Dark mode inputs */
+.dark input, .dark select {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+/* Dark mode table */
+.dark td, .dark th { color: #e2e8f0 !important; }
+
+/* Keep colored text working in dark mode */
+.dark .text-green-600 { color: #4ade80 !important; }
+.dark .text-red-500   { color: #f87171 !important; }
+.dark .text-red-600   { color: #f87171 !important; }
+.dark .text-blue-600  { color: #60a5fa !important; }
+
+/* Badge backgrounds in dark mode */
+.dark .bg-green-50 { background-color: #14532d !important; }
+.dark .bg-red-50   { background-color: #450a0a !important; }
+.dark .text-green-700 { color: #4ade80 !important; }
+.dark .text-red-600   { color: #f87171 !important; }
+
+/* ── Dark mode harmonization ─────────────────────────────── */
+
+/* Calendar dropdown */
+.dark [style*="background: var(--surface)"],
+.dark [style*="background:var(--surface)"] {
+  background: #1e293b !important;
+}
+
+/* Force all inline white backgrounds to dark surface in dark mode */
+.dark [style*="background: white"],
+.dark [style*="background:white"],
+.dark [style*="background: rgb(255, 255, 255)"],
+.dark [style*="background-color: white"] {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+/* Calendar specific */
+.dark [style*="background: #f3f4f6"],
+.dark [style*="background:#f3f4f6"],
+.dark [style*="background: #eff6ff"],
+.dark [style*="background:#eff6ff"] {
+  background: #1e293b !important;
+}
+
+/* Client summary expanded section — light palette bg */
+.dark [style*="background: #EEF2FF"],
+.dark [style*="background:#EEF2FF"] {
+  background: #1e293b !important;
+}
+
+/* Client card active state */
+.dark [style*="background: rgb(238, 242, 255)"] {
+  background: #1e293b !important;
+}
+
+/* Table rows hover and alternating */
+.dark [style*="background: var(--surface)"] {
+  background: #1e293b !important;
+}
+
+/* Delivery table header row palette bg */
+.dark table thead tr[style*="background: #EEF2FF"],
+.dark table thead tr[style*="background:#EEF2FF"] {
+  background: #0f172a !important;
+}
+
+/* Calendar today border */
+.dark button[style*="border: 1.5px solid #3b82f6"] {
+  color: #60a5fa !important;
+}
+
+/* Calendar selected day */
+.dark button[style*="background: #111827"] {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Unit picker and badge pills */
+.dark [style*="background: #EEF2FF"][style*="color: #3730A3"] {
+  background: #1e3a5f !important;
+  color: #93c5fd !important;
+  border-color: #1e3a5f !important;
+}
+
+/* Autocomplete dropdown */
+.dark [style*="border: 1px solid #C7D2FE"] {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* pcs / kg / bag unit badges in table */
+.dark [style*="background: #EEF2FF; color: #3730A3"] {
+  background: #1e3a5f !important;
+  color: #93c5fd !important;
+  border-color: #2d4a7a !important;
+}
+
+/* Edit row yellow background */
+.dark [style*="background: #FFFBEB"] {
+  background: #1c1a10 !important;
+}
+
+/* Input and select dark fix */
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+

@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: medgelato-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:app -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false       # set manually in Render dashboard (your Supabase URL)
+      - key: FRONTEND_URL
+        sync: false       # set after frontend is deployed
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  - type: web
+    name: medgelato-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

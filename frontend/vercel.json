@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://medgelato.onrender.com/$1" }
+  ]
+}
