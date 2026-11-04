@@ -266,14 +266,14 @@ def export_pdf(id: int, db: Session = Depends(get_db)):
         from reportlab.platypus import Image as RLImage
         from PIL import Image as PILImage
         with PILImage.open(logo_path) as img:
-            img.thumbnail((600, 600))
+            img.thumbnail((500, 500))
             orig_w, orig_h = img.size
             tmp = io.BytesIO()
             img.convert('RGBA').save(tmp, format='PNG')
-        tmp.seek(0)
+        logo_bytes = tmp.getvalue()
         logo_w = 50 * mm
         logo_h = logo_w * (orig_h / orig_w)
-        logo_cell = RLImage(tmp, width=logo_w, height=logo_h)
+        logo_cell = RLImage(io.BytesIO(logo_bytes), width=logo_w, height=logo_h)
         logo_h_capped = min(logo_h, 50*mm)
     else:
         logo_cell = Paragraph(f'<b>{BUSINESS["name"]}</b>', sty('lg', 18, bold=True, color=GOLD))
