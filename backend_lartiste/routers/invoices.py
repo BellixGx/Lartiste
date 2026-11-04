@@ -13,10 +13,10 @@ BUSINESS = {
     "name": "RESTAURANT L'ARTISTE AL HOCAIMA",
     "address": "MARINA AL HOCAIMA 3200",
     "tel": "08 08 51 50 03",
-    # "rc": "3545",
-    # "ice": "003155284000007",
-    # "if": "53303580",
-    # "taxe_pro": "565036166",
+    "rc": "3545",
+    "ice": "003155284000007",
+    "if": "53303580",
+    "taxe_pro": "565036166",
 }
 
 
@@ -205,8 +205,8 @@ def export_pdf(id: int, db: Session = Depends(get_db)):
         fy = 10 * mm
         canvas.drawCentredString(PAGE_W/2, fy - 4,
             f"Auto Entrepreneur : {BUSINESS['name']}   |   TEL : {BUSINESS['tel']}   |   Adresse : {BUSINESS['address']}")
-        # canvas.drawCentredString(PAGE_W/2, fy - 11,
-        #     f"ICE : {BUSINESS['rc']} | {BUSINESS['ice']}   |   IF : {BUSINESS['if']}   |   Taxe professionnelle N° : {BUSINESS['taxe_pro']}")
+        canvas.drawCentredString(PAGE_W/2, fy - 11,
+            f"ICE : {BUSINESS['rc']} | {BUSINESS['ice']}   |   IF : {BUSINESS['if']}   |   Taxe professionnelle N° : {BUSINESS['taxe_pro']}")
         canvas.setFont('Helvetica', 8)
         canvas.drawCentredString(PAGE_W/2, fy - 19, f"{doc.page} / {total_pages[0]}")
 
@@ -265,21 +265,14 @@ def export_pdf(id: int, db: Session = Depends(get_db)):
     if os.path.exists(logo_path):
         from reportlab.platypus import Image as RLImage
         from PIL import Image as PILImage
-        with PILImage.open(logo_path) as pil_img:
-            orig_w, orig_h = pil_img.size
+        with PILImage.open(logo_path) as img:
+            img.thumbnail((600, 600))
+            orig_w, orig_h = img.size
+            tmp = io.BytesIO()
+            img.convert('RGBA').save(tmp, format='PNG')
+        tmp.seek(0)
         logo_w = 50 * mm
         logo_h = logo_w * (orig_h / orig_w)
-        # FIX 2: preserve transparency instead of converting to RGB
-        tmp = io.BytesIO()
-        with PILImage.open(logo_path) as img:
-            if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
-                background = PILImage.new('RGBA', img.size, (255, 255, 255, 0))
-                img_rgba = img.convert('RGBA')
-                background.paste(img_rgba, mask=img_rgba.split()[3])
-                background.save(tmp, format='PNG')
-            else:
-                img.convert('RGBA').save(tmp, format='PNG')
-        tmp.seek(0)
         logo_cell = RLImage(tmp, width=logo_w, height=logo_h)
         logo_h_capped = min(logo_h, 50*mm)
     else:
